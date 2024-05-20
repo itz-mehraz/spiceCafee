@@ -1,10 +1,17 @@
 import React from "react";
 import "./Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Navbar = () => {
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
+  const navigate = useNavigate(); // Access the navigate function
+
+  // Handle cart button click
+  const handleCartClick = () => {
+    // Redirect to the cart page
+    navigate("/cart");
+  };
 
   return (
     <div className="navbar">
@@ -41,6 +48,9 @@ const Navbar = () => {
         </a>
       </ul>
       <div className="navbar-right">
+        <button className="cart-button" onClick={handleCartClick}>
+          Cart
+        </button>
         {isAuthenticated ? (
           <div className="user-info">
             <img src={user.picture} alt={user.name} className="user-avatar" />
